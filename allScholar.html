@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<style>
+    .heading{
+        color: black;
+    }
+    .heading h1 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+
+<body>
+    <div class="heading">
+        <h1>All Scholarships</h1>
+    </div>
+    <div>
+        <table class="tableclass">
+            <thead>
+                <tr>
+                    <th>Sr no.</th>
+                    <th>Scholarship</th>
+                    <th>Authority</th>
+                    <th>State</th>
+                    <th>Cutoff</th>
+                    <th>Category</th>
+                    <th>Income Limit</th>
+                    <th>Benefit</th>
+                    <th>Documents Required</th>
+                    <th>Apply Link</th>
+                </tr>
+            </thead>
+            <tbody id="data-output">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch("sch.json")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (schs) {
+                let placeholder = document.querySelector("#data-output");
+                let out = "";
+                var cat = "<?= $category ?>";
+                var inc = "<?= $incomeVal ?>";
+                for (let sch of schs) {
+                    out += `
+                        <tr>
+                            <td> ${sch.id}</td>
+                            <td> ${sch.sname}</td>
+                            <td> ${sch.aname}</td>
+                            <td> ${sch.state}</td>
+                            <td> ${sch.cutoff}</td>
+                            <td> ${sch.category}</td>
+                            <td> ${sch.incomelimit}</td>
+                            <td> ${sch.benefit}</td>
+                            <td> ${sch.docrequired}</td>
+                            <td> ${sch.link}</td>
+                        </tr>
+                    `;
+                }
+                placeholder.innerHTML = out;
+            })
+
+        'use strict';
+
+        jQuery.noConflict();
+        jQuery(document).ready(function ($) {
+
+            // usage: 2
+            $('#myForm').formToJson('.result-json-output');
+
+        });
+    </script>
+</body>
+
+</html>
